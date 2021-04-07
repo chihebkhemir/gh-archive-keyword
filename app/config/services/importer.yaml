@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Import\:
+        resource: '../../src/Import/*'
+
+    _instanceof:
+        App\Import\Mapper\RestrictedMapperInterface:
+            tags: ['app.importer.data_mapper.restricted']
+
+    App\Import\Mapper\ChainMapper:
+        arguments:
+            $mappers: !tagged_iterator app.importer.data_mapper.restricted

@@ -1,0 +1,22 @@
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{Command,DependencyInjection,Entity,Import,Migrations,Tests,Utils,Webservice,Kernel.php}'
+
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+imports:
+    - { resource: 'services/command.yaml' }
+    - { resource: 'services/importer.yaml' }
+    - { resource: 'services/utils.yaml' }
+    - { resource: 'services/webservice.yaml' }
